@@ -1,68 +1,95 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/*
+ * Target Style: Clean White Card on Dark Background
+ */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #07716d;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* 1. Set the dark background and center the form */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  display: grid;
+  place-content: center;
   min-height: 100vh;
+  margin: 0;
+  background-color: #2d3748; /* Dark Slate background */
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* 2. Style the main form container */
+[data-amplify-authenticator] {
+  background-color: #ffffff;
+  max-width: 420px;
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Define the accent color */
+  --brand-color: #319795; /* Teal */
 }
 
-button {
-  border-radius: 10px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #3d3d3d;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* 3. Remove the unwanted inner border from the form */
+[data-amplify-authenticator] [data-amplify-router] {
+  border: none;
+  box-shadow: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* 4. Add vertical space between form fields */
+[data-amplify-authenticator] form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 5. THIS IS THE KEY FIX: Style the password field */
+.amplify-passwordfield {
+  /* This container needs to be relative to position the icon inside it */
+  position: relative;
+}
+.amplify-passwordfield .amplify-button--icon {
+  /* Position the icon absolutely on the right side */
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  z-index: 2;
+  border: none;
+  background-color: transparent;
+  padding: 0.5rem;
+  color: #a0aec0; /* Give the icon a soft gray color */
+}
+
+/* Add padding to the input so text doesn't go under the icon */
+.amplify-passwordfield input {
+  padding-right: 3rem;
+}
+
+
+/* 6. Style the "Sign In" and "Create Account" tabs */
+[data-amplify-tabs-item] {
+  color: #718096;
+  border-bottom: 2px solid transparent;
+}
+[data-amplify-tabs-item][data-state='active'] {
+  color: #2d3748;
+  border-bottom-color: var(--brand-color);
+  background-color: transparent;
+}
+
+/* 7. Style the primary "Sign In" / "Create Account" button */
+[data-amplify-authenticator] button[data-variation="primary"] {
+  background-color: var(--brand-color);
+  border: none;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+[data-amplify-authenticator] button[data-variation="primary"]:hover {
+  background-color: #2C7A7B;
+}
+
+/* 8. Style the "Forgot your password?" link */
+[data-amplify-authenticator] .amplify-button--link {
+  color: var(--brand-color);
+  text-align: center;
+  margin-top: 1rem;
 }
