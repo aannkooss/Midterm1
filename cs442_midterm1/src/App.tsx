@@ -19,32 +19,29 @@ import type { Client } from 'aws-amplify/data';
 import type { Schema } from '../amplify/data/resource';
 
 Amplify.configure(outputs);
-
 const client: Client<Schema> = generateClient<Schema>();
-
 type Todo = Schema['Todo']['type'];
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  
 
   const { user, signOut } = useAuthenticator();
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        // FIX #2: Fetch from the 'Todo' model
         const { data: items } = await client.models.Todo.list();
         setTodos(items);
       } catch (error) {
         console.error('Error fetching todos:', error);
       }
     };
-
     fetchTodos();
   }, []);
 
   return (
-    <View as="main" padding="2rem">
+    <View as="main" padding="2rem" backgroundColor="white">
       <Flex direction="row" justifyContent="space-between" alignItems="center">
         <Heading level={2}>
           Welcome,{' '}
@@ -57,14 +54,12 @@ export default function App() {
         </Button>
       </Flex>
       <Divider margin="medium" />
-
       <Heading level={3} marginBottom="medium">
         My Todos
       </Heading>
       <Grid templateColumns="1fr 1fr 1fr" gap="1rem">
         {todos.map((todo) => (
           <Card key={todo.id} variation="outlined">
-            {}
             <Text>{todo.content}</Text>
           </Card>
         ))}
@@ -72,3 +67,4 @@ export default function App() {
     </View>
   );
 }
+
